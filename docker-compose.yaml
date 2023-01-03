@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:10.4
+    environment:
+      MYSQL_ROOT_PASSWORD: "myverysecurepassword!!"
+      MYSQL_USER: "devops"
+      MYSQL_PASSWORD: "Passw0rd!"
+      MYSQL_DATABASE: "cloud_compute"
+    networks:
+      - cloud_dev_internal_net
+    ports:
+      - "127.0.0.1:3300:3306"
+
+networks:
+  cloud_dev_internal_net:
+    external: true
+
