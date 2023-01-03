@@ -18,7 +18,7 @@ var Product product.ProductServiceClient
 
 func Connect() {
 	var err error
-	DB, err = gorm.Open("mysql", "devops:Passw0rd!@tcp(127.0.0.1:3300)/cloud_compute?charset=utf8&parseTime=True&loc=Local")
+	DB, err = gorm.Open("mysql", "devops:Passw0rd!@tcp(order_service_database:3306)/cloud_compute?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,12 +27,12 @@ func Connect() {
 }
 
 func GrpcConnection() {
-	authConn, err := grpc.Dial("127.0.0.1:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	authConn, err := grpc.Dial("auth_grpc_server:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalln("Error Dial: ", err)
 	}
 
-	prodConn, err := grpc.Dial("127.0.0.1:50052", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	prodConn, err := grpc.Dial("product-grpc:50052", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalln("Error Dial: ", err)
 	}
